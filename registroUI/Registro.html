@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro - Recibox</title>
+  <link rel="stylesheet" href="Registro.css" />
+</head>
+<body>
+  <div class="container">
+
+    <!-- Paso 1 -->
+    <form id="paso1" class="form-step active">
+      <h1>Registrarte</h1>
+      <input type="text" id="nombres" placeholder="*Nombres*" required />
+      <input type="text" id="apellidos" placeholder="*Apellidos*" required />
+      <input type="text" id="documento" placeholder="*Documento*" required />
+      <small class="info">CC, CE, Pasaporte</small>
+      <input type="tel" id="celular" placeholder="*Número de Celular*" required />
+      <input type="email" id="email" placeholder="*Correo Electrónico*" required />
+      <button type="button" onclick="mostrarPaso(2)">Siguiente</button>
+      <button type="button" class="cancelar" onclick="cancelarRegistro()">Cancelar Registro</button>
+    </form>
+    
+    <!-- Paso 2 -->
+    <form id="paso2" class="form-step">
+      <h1>Relación Propiedad</h1>
+      <input type="text" id="torre" placeholder="# *Torre*" required />
+      <input type="text" id="apartamento" placeholder="# *Apartamento*" required />
+      <h1>Seguridad</h1>
+      <input type="text" id="usuario" placeholder="*Usuario (Cédula)*" required />
+      <input type="password" id="clave" placeholder="*Contraseña*" required />
+      <input type="password" id="confirmarClave" placeholder="*Confirmar Contraseña*" required />
+      <div class="terminos">
+        <label>
+          <input type="checkbox" id="terminosCheckbox" required>
+          Acepto los <a href="javascript:void(0);" id="abrirModal">Términos y Condiciones</a>.
+        </label>
+      </div>
+      <button type="button" onclick="mostrarPaso(3)">Siguiente</button>
+      <button type="button" onclick="mostrarPaso(1)">Atrás</button>
+    </form>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Términos y Condiciones</h2>
+          <section class="termino">
+              <h3>1. Aceptación de los Términos</h3>
+              <p>Al registrarse en [Nombre de la Plataforma], aceptas cumplir con estos Términos y Condiciones...</p>
+          </section>
+  
+          <section class="termino">
+              <h3>2. Uso de los Servicios</h3>
+              <p>Los servicios proporcionados por [Nombre de la Plataforma] están destinados exclusivamente para [descripción del propósito de la plataforma].</p>
+          </section>
+  
+          <section class="termino">
+              <h3>3. Privacidad y Protección de Datos</h3>
+              <p>En [Nombre de la Plataforma], nos comprometemos a proteger tu privacidad y a garantizar la seguridad de tus datos personales...</p>
+          </section>
+  
+          <section class="termino">
+              <h3>4. Modificaciones</h3>
+              <p>Nos reservamos el derecho de modificar los Términos y Condiciones en cualquier momento...</p>
+          </section>
+      </div>
+  </div>
+
+    <!-- Paso 3 -->
+    <form id="paso3" class="form-step">
+      <p><strong>Verifica que todos los datos sean correctos antes de enviar.</strong></p>
+      <button type="submit">Finalizar Registro</button>
+      <button type="button" onclick="mostrarPaso(2)">Atrás</button>
+    </form>
+  </div>
+
+  <script src="Registro.js"></script>
+</body>
+</html>

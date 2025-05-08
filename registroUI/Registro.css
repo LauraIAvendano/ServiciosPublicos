@@ -1,0 +1,140 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+.container {
+  max-width: 420px;
+  width: 90%; /* ✅ Esto asegura que nunca se pase del ancho de pantalla */
+  margin: 50px auto;
+  padding: 25px 20px;
+  background-color: #f9fafb;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #111827;
+}
+
+form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box; /* ✅ Evita que el padding sume al ancho */
+}
+
+/* Casilla de términos */
+.terminos {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.terminos input[type="checkbox"] {
+  margin-right: -170px;
+  transform: scale(1.2);
+  margin-left: -160px;
+}
+
+.terminos label {
+  color: #555;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+}
+
+.close {
+  float: right;
+  font-size: 26px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* Botones */
+form button {
+  width: 100%; /* ✅ Para que no sobrepase el contenedor */
+  padding: 12px;
+  margin-top: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #222;
+}
+
+form .cancelar {
+  background-color: #666;
+}
+
+/* Estilo para pasos del formulario */
+.form-step {
+  display: none;
+}
+.form-step.active {
+  display: block;
+}
+
+/* Info */
+form .info {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: -8px;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    margin: 20px auto;
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .terminos input[type="checkbox"] {
+    margin-right: -125px;
+    transform: scale(1.2);
+    margin-left: -130px;
+  }
+
+  form input, form button {
+    font-size: 15px;
+  }
+}
