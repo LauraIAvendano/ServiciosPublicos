@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interfaz de Propietario</title>
+  <link rel="stylesheet" href="Propietario.css">
+</head>
+<body>
+  <header>
+    <div class="user-info">
+      <h1 id="welcome">Bienvenido Propietario</h1>
+      <button id="logout" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Sección de notificaciones -->
+    <section id="notifications-section">
+      <h2>Notificaciones de Factura</h2>
+      <div id="notifications-list">
+        <!-- Las notificaciones se cargarán aquí -->
+      </div>
+    </section>
+
+    <!-- Sección de historial de facturación -->
+    <section id="history-section">
+      <h2>Historial de Facturación</h2>
+      <div id="history-list">
+        <!-- El historial de facturación se cargará aquí -->
+      </div>
+    </section>
+
+    <!-- Sección para recoger factura -->
+    <section id="collect-section">
+      <h2>Recoger Factura</h2>
+      <button id="collect-btn" onclick="collectInvoice()">Recoger Factura</button>
+    </section>
+  </main>
+      <div class="logo">
+        <img src="/Dashboard/Image-dashboard/Logonegro.png" alt="Recibox" />
+    </div>
+    <div class="footer-text">
+      <p>Tu sistema de facturación segura</p>
+    </div>
+  <script src="Propietario.js"></script>
+</body>
+</html>

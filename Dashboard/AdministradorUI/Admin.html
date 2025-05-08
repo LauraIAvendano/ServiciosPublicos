@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Administrador - Recibox</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="header">
+    <button id="logout" onclick="logout()">Cerrar sesión</button>
+    <h1>Administrador</h1>
+    <img src="/Dashboard/Image-dashboard/Logonegro.png" alt="Recibox" class="logo" />
+  </header>
+
+  <section class="indicadores">
+    <div class="indicador azul">
+     <div class="numero-icono">
+      <h2 id="facturas-entregadas">0</h2>
+      <img src="/Dashboard/Image-dashboard/listo.png" alt="Entregadas" class="icono">
+     </div>
+      <p>Facturas Entregadas</p>
+    </div>
+    <div class="indicador amarillo">
+     <div class="numero-icono">
+      <h2 id="facturas-pendientes">0</h2>
+      <img src="/Dashboard/Image-dashboard/pendiente.png" alt="pendiente" class="icono">
+     </div>
+      <p>Facturas Pendientes</p>
+    </div>
+    <div class="indicador rojo">
+     <div class="numero-icono">
+      <h2 id="reclamos">0</h2>
+      <img src="/Dashboard/Image-dashboard/reclamo.png" alt="reclamo" class="icono">
+     </div>
+      <p>Reclamos</p>
+    </div>
+  </section>
+
+  <section class="opciones">
+    <button data-target="historial">Historial de Entregas</button>
+    <button data-target="reclamos">Gestión de Reclamos</button>
+    <button data-target="usuarios">Usuarios</button>
+  </section>
+
+  <!-- Secciones funcionales -->
+  <section id="historial" class="seccion oculto">
+    <h2>Historial de Entregas</h2>
+    <table>
+      <thead>
+        <tr><th>Apartamento</th><th>Fecha</th><th>Locker</th></tr>
+      </thead>
+      <tbody id="historial-table">
+        <!-- Aquí se cargarán los datos dinámicamente -->
+      </tbody>
+    </table>
+  </section>
+
+  <section id="reclamos" class="seccion oculto">
+    <h2>Gestión de Reclamos</h2>
+    <ul id="reclamos-list">
+      <!-- Aquí se cargarán los reclamos dinámicamente -->
+    </ul>
+  </section>
+
+  <section id="usuarios" class="seccion oculto">
+    <h2>Gestión de Usuarios</h2>
+    <ul id="usuarios-list">
+      <!-- Aquí se cargarán los usuarios dinámicamente -->
+    </ul>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const botones = document.querySelectorAll(".opciones button");
+      const secciones = document.querySelectorAll(".seccion");
+
+      botones.forEach(boton => {
+        boton.addEventListener("click", () => {
+          const target = boton.getAttribute("data-target");
+
+          botones.forEach(b => b.classList.remove("activo"));
+          boton.classList.add("activo");
+
+          secciones.forEach(seccion => {
+            if (seccion.id === target) {
+              seccion.classList.add("visible");
+            } else {
+              seccion.classList.remove("visible");
+            }
+          });
+        });
+      });
+
+      // Cargar datos del panel
+      loadData();
+    });
+
+    function loadData() {
+      // Cargar historial de entregas
+      fetch('/api/historial')
+        .then(response => response.json())
+        .then(data => {
+          const historialTable = document.getElementById('historial-table');
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${row.apartamento}</td><td>${row.fecha}</td><td>${row.locker}</td>`;
+            historialTable.appendChild(tr);
+          });
+        });
+
+      // Cargar reclamos
+      fetch('/api/reclamos')
+        .then(response => response.json())
+        .then(data => {
+          const reclamosList = document.getElementById('reclamos-list');
+          data.forEach(reclamo => {
+            const li = document.createElement('li');
+            li.innerHTML = `${reclamo.descripcion} - Locker ${reclamo.locker} <button onclick="resolverReclamo(${reclamo.id})">Resolver</button>`;
+            reclamosList.appendChild(li);
+          });
+          // Actualizar indicador de reclamos
+          document.getElementById('reclamos').innerText = data.length;
+        });
+
+      // Cargar usuarios
+      fetch('/api/usuarios')
+        .then(response => response.json())
+        .then(data => {
+          const usuariosList = document.getElementById('usuarios-list');
+          data.forEach(user => {
+            const li = document.createElement('li');
+            li.innerHTML = `${user.nombres} ${user.apellidos} - ${user.usuario} <button onclick="eliminarUsuario(${user.id})">Eliminar</button>`;
+            usuariosList.appendChild(li);
+          });
+        });
+
+      // Cargar indicadores
+      fetch('/api/historial')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('facturas-entregadas').innerText = data.filter(item => item.estado === 'entregada').length;
+          document.getElementById('facturas-pendientes').innerText = data.filter(item => item.estado === 'pendiente').length;
+        });
+    }
+
+    function resolverReclamo(id) {
+      fetch(`/api/reclamos/${id}/resolver`, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Reclamo resuelto');
+            loadData(); // Recargar datos después de resolver el reclamo
+          } else {
+            alert('Error al resolver reclamo');
+          }
+        });
+    }
+
+    function eliminarUsuario(id) {
+      if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+        fetch(`/api/usuarios/${id}`, { method: 'DELETE' })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('Usuario eliminado');
+              loadData(); // Recargar datos después de eliminar el usuario
+            } else {
+              alert('Error al eliminar usuario');
+            }
+          });
+      }
+    }
+  </script>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!-- /verificacion/verificacion.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificación Facial</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    .scan-circle {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      border: 5px solid #0ff;
+      border-radius: 50%;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* SOLO para pantallas de celular */
+    @media (max-width: 480px) {
+      .scan-circle {
+        width: 50px;
+        height: 50px;
+        border-width: 4px;
+      }
+
+      .message {
+        font-size: 1.1em;
+      }
+
+      body {
+        padding-top: 40px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="scan-circle"></div>
+  <p class="message">Verificando rostro...</p>
+
+  <script src="verificacion.js"></script>
+</body>
+</html>
