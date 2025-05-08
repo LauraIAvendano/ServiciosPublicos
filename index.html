@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Recibox</title>
+  <link rel="stylesheet" href="Login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="overlay">
+      <!-- Logo -->
+      <div class="logo">
+        <img src="/Images/Logoblanco.png" alt="Recibox" />
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <input type="text" id="username" placeholder="Usuario" required />
+        <input type="password" id="password" placeholder="Contraseña" required />
+      
+        <select id="role" required>
+          <option value="">Seleccione un rol</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Seguridad">Seguridad</option>
+          <option value="Propietario">Propietario</option>
+        </select>
+      
+        <button type="submit">Siguiente</button>
+        <p id="errorMsg" class="error-message"></p>
+      </form>      
+
+      <!-- Registro -->
+      <p class="register-text">
+        ¿No estás registrado?... <a href="/registroUI/Registro.html">Regístrate</a>
+      </p>
+
+      <!-- Footer -->
+      <div class="footer-text">
+        <p>Bienvenido a <span>Recibox</span></p>
+        <p>Tu sistema de facturación segura</p>
+      </div>
+    </div>
+  </div>
+  <script src="Login.js"></script>
+</body>
+</html>
